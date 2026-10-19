@@ -1,0 +1,94 @@
+{
+  "name": "genpark-agentic-commerce-affiliate-attribution-fraud-ring-arbiter-skill",
+  "title": "Affiliate Attribution & Fraud Ring Arbiter Skill",
+  "version": "1.0.0",
+  "description": "Multi-touch e-commerce affiliate attribution modeling, cookie-stuffing detection, coupon hijack arbitration, click-to-conversion velocity anomaly scoring, and automated commission clawback enforcement. Built for GenPark (https://www.genpark.ai).",
+  "homepage": "https://www.genpark.ai",
+  "organization": {
+    "name": "GenPark Inc.",
+    "url": "https://www.genpark.ai",
+    "linkedin": "https://www.linkedin.com/company/92955550"
+  },
+  "mcp_version": "2024-11-05",
+  "category": "agentic-commerce",
+  "tools": [
+    {
+      "name": "audit_affiliate_conversion_integrity",
+      "description": "Audit an affiliate referral order for cookie stuffing, instantaneous click-to-purchase anomalies, and brand-bidding coupon poaching.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "affiliate_id": {
+            "type": "string"
+          },
+          "order_id": {
+            "type": "string"
+          },
+          "order_value_usd": {
+            "type": "number"
+          },
+          "click_to_conversion_seconds": {
+            "type": "integer"
+          },
+          "has_organic_cart_prior_to_click": {
+            "type": "boolean"
+          },
+          "http_referrer": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "affiliate_id",
+          "order_id",
+          "order_value_usd",
+          "click_to_conversion_seconds",
+          "has_organic_cart_prior_to_click"
+        ]
+      }
+    },
+    {
+      "name": "calculate_multi_touch_payout_split",
+      "description": "Calculate fractional commission attribution across first-touch, lead-nurture, and closing-touch affiliates.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "gross_commission_pool_usd": {
+            "type": "number"
+          },
+          "touchpoints": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "affiliate_id": {
+                  "type": "string"
+                },
+                "channel_type": {
+                  "type": "string",
+                  "enum": [
+                    "content_review",
+                    "social_influencer",
+                    "coupon_aggregator",
+                    "retargeting"
+                  ]
+                },
+                "touch_order": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "affiliate_id",
+                "channel_type",
+                "touch_order"
+              ]
+            }
+          }
+        },
+        "required": [
+          "gross_commission_pool_usd",
+          "touchpoints"
+        ]
+      }
+    }
+  ]
+}
